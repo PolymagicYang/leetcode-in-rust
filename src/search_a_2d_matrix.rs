@@ -34,6 +34,26 @@ impl Solution {
 		};
 		false
     }
+
+	pub fn top_right_search(&self, matrix: Vec<Vec<i32>>, target: i32) -> bool {
+		if matrix.len() == 0 || matrix[0].len() == 0 {
+			return false;
+		}
+		let (mut x, mut y) = (0, (matrix[0].len() - 1) as i32);
+
+		while x != matrix.len() && y >= 0 {
+			let value = matrix[x as usize][y as usize];
+			if value == target {
+				return true;
+			}
+			if value > target {
+				y -= 1;
+			} else {
+				x += 1;
+			}
+		};
+		false
+	}
 }
 
 #[test] 
@@ -41,6 +61,6 @@ fn test() {
 	let solution = Solution::new();
 	let s2 = solution.search_matrix(vec![vec![1, 1]], 0);
 	println!("{}", s2);
-	let s1 = solution.search_matrix(vec![vec![1,4,7,11,15],vec![2,5,8,12,19],vec![3,6,9,16,22],vec![10,13,14,17,24],vec![18,21,23,26,30]], 23);
+	let s1 = solution.top_right_search(vec![vec![1,4,7,11,15],vec![2,5,8,12,19],vec![3,6,9,16,22],vec![10,13,14,17,24],vec![18,21,23,26,30]], 23);
 	println!("{}", s1);
 }
